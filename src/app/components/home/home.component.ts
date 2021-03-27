@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -7,20 +8,26 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public list = [];
+  public list = null;
   public loading = true;
-  constructor(private api: ApiService) {}
+  public myform:any;
+  public name:any;
+  constructor(private api: ApiService, private fb: FormBuilder) {
+  
+    
+  }
 
   ngOnInit(): void {
     console.log('hello world');
     this.getUsers();
+    this.name=new FormControl("");
   }
   getUsers() {
     this.api.getApi()
     .subscribe(
       (res: any) => {
         this.list = res.results;
-        debugger
+    
       },
       (err: any) => console.log(err)
     );
@@ -30,5 +37,6 @@ export class HomeComponent implements OnInit {
 
   tap() {
     this.loading = !this.loading;
+    console.log(this.name.value)
   }
 }

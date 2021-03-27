@@ -4,6 +4,9 @@
 
     <ul>
         <li *ngFor="let item of list">
-            {{ item }} 
+            {{ item.name   }} 
         </li>
     </ul>
+
+    <input type="text" [formControl]="name">
+     {{name.value}}
